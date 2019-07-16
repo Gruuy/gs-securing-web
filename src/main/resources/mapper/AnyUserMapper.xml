@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.AnyUserMapper">
+    <resultMap id="BaseUser" type="entity.SystemUser">
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <collection property="roles" ofType="entity.SysRole">
+            <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+            <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getUserByUsername" parameterType="string" resultMap="BaseUser">
+        select * from sys_user su
+          left join sys_user_role sur on su.user_id=sur.user_id
+          left join sys_role sr on sr.role_id=sur.role_id
+        where username=#{username}
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hello.dao.SysMenuMapper">
+    <resultMap id="BaseMap" type="entity.SysMenu">
+        <result column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
+    <select id="getUrlRole" resultMap="BaseMap">
+        select sm.*,sr.*,sur.*,su.*
+        from sys_menu sm
+                 left join sys_role sr on sm.role_id=sr.role_id
+                 left join sys_user_role sur on sur.role_id=sr.role_id
+                 left join sys_user su on su.user_id=sur.user_id
+        where sm.url=#{url}
+    </select>
+</mapper>

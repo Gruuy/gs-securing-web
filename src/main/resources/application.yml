@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/testsecurity?serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    initialSize: 5    #连接初始值
+    minIdle: 5        #连接池的最小空闲值
+    maxActive: 20     #连接池的最大值
+    maxWait: 60000    #连接最大等待时间
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss    #时间格式
+    time-zone: GMT+8                    #时区
+
+mybatis:
+  type-aliases-package: entity              #实体路径
+  mapper-locations: classpath:mapper/*.xml  #xml路径
+  configuration:
+    map-underscore-to-camel-case: true      #开启驼峰转换
+
+#mybatis打印sql 测试用
+logging:
+  level:
+    cn.gzrrg.dao : debug
